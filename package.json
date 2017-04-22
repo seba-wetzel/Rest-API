@@ -1,0 +1,30 @@
+{
+  "name": "rest-api",
+  "version": "0.0.1",
+  "description": "Rest API para aplicaciones web sencillas",
+  "homepage": "http://www.electro-ar.net",
+  "author": {
+    "name": "seba-wetzel",
+    "email": "seba.wetzel@gmail.com",
+    "url": ""
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "app.js",
+  "keywords": [
+    ""
+  ],
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "cors": "^2.8.1",
+    "express": "^4.13.3",
+    "nedb": "^1.8.0",
+    "request": "^2.60.0"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": "seba-wetzel/rest-api",
+  "license": "ISC"
+}
