@@ -110,7 +110,7 @@ app.delete('/users/id/:_id', function(req, res) {
 })
 
 // Server start listening on port
-var port = 8888
+var port = 80
 
 app.listen(port, function() {
     console.log('App listening on port: ' + port);
