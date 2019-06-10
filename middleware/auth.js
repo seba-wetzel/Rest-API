@@ -1,20 +1,22 @@
-const services = require('../services/index')
+'use strict'
 
+const services = require('../services')
 
-const isAuth = (req, res, next)=>{
-    if(!req.headers.authorization) return res.status(403).send({messages: 'No tienes permisos'}).end();
-    const token = req.headers.authorization.split(" ")[1];
+function isAuth (req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(403).send({ message: 'No tienes autorización' })
+  }
 
-    services.decodeToken(token)
-    .then(responce=>{
-        req.user = responce;
-        next();
+  const token = req.headers.authorization.split(' ')[1]
+
+  services.decodeToken(token)
+    .then(response => {
+      req.user = response
+      next()
     })
-    .catch(responce=>{
-        res.status(responce.status);
+    .catch(response => {
+      res.status(response.status)
     })
-    req.user = payload.sub;
-    next();
 }
 
-module.exports = isAuth;
+module.exports = isAuth
