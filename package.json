@@ -27,7 +27,7 @@
     "request": "^2.88.0"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "repository": "seba-wetzel/rest-api",
   "license": "ISC"
