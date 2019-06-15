@@ -16,6 +16,7 @@ function isAuth (req, res, next) {
     })
     .catch(response => {
       res.status(response.status)
+      next()
     })
 }
 
