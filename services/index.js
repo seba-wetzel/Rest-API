@@ -18,14 +18,14 @@ const decodeToken = (token) => {
             if (payload.exp <= moment().unix()) {
                 reject({
                     status: 401,
-                    message: 'El token ha expirado'
+                    msg: 'El token ha expirado'
                 })
             }
             resolve(payload.sub)
         } catch (err) {
             reject({
                 status: 500,
-                message: 'Invalid Token'
+                msg: 'Invalid Token'
             })
         }
     })

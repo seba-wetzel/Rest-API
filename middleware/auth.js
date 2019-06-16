@@ -15,8 +15,8 @@ function isAuth (req, res, next) {
       next()
     })
     .catch(response => {
-      res.status(response.status)
-      next()
+      res.status(response.status).send(responce.msgo).end();
+      //next()
     })
 }
 

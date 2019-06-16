@@ -8,7 +8,7 @@ const isAuth   = require('../middleware/auth');
 // Crea el elemento
 element.post('/', ElementsCtrl.saveElement)
 //Retorna todos los elementos
-element.get('/', isAuth, ElementsCtrl.getElements)
+element.get('/', ElementsCtrl.getElements)
 // Devuelve un elemento por su id
 element.get('/:elementId', ElementsCtrl.getElementById)
 // Busca y actualiza los datos de un solo elemento por su id
