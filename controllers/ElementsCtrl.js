@@ -1,6 +1,7 @@
 const Element = require('../schemas/elementSchema');
 
 const getElements = (req, res) => {
+    //TODO add a req.user (user id) as a parameter in the search
     Element.find({}, (err, elements) => {
         if (err) return res.status(500).send({ message: "Error al buscar los elementos" }).end();
         if (!elements) return res.status(400).send({ message: "No hay elemntos" }).end();

@@ -15,14 +15,15 @@ const decodeToken = (token) => {
     const decoded = new Promise((resolve, reject) => {
         try {
             const payload = jwt.decode(token, config.SECRET_TOKEN)
-            if (payload.exp <= moment().unix()) {
-                reject({
-                    status: 401,
-                    msg: 'El token ha expirado'
-                })
-            }
+            console.log(payload)
             resolve(payload.sub)
         } catch (err) {
+            if (err.message == 'Token expired') {
+                reject({
+                    status: 401,
+                    msg: 'Token expired'
+                })
+            }
             reject({
                 status: 500,
                 msg: 'Invalid Token'
