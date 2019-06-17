@@ -9,7 +9,9 @@ const signIn = (req, res) => {
         if (!user) return res.status(404).send({ msg: `no existe el usuario: ${req.body.email}` }) 
         user.comparePassword(req.body.password, (err, isMatch) => { 
             if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` }) 
-            if (!isMatch) return res.status(404).send({ msg: `Error de contraseña: ${req.body.email}` }) 
+            if (!isMatch) return res.status(404).send({ msg: `Error de contraseña: ${req.body.email}` })
+            user.lastLogin = Date.now();
+            user.save((err, user)=> console.log(user)); 
             req.user = user 
             return res.status(200).send({ msg: 'Te has logueado correctamente', token: service.createToken(user) }) 
         }); 

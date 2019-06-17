@@ -4,11 +4,12 @@ const parser = require('body-parser');
 const cors = require('cors');
 
 //Esto debe ir en otro lado
-const userCtrl = require('./controllers/UserCtrl');
+const {signUp, signIn} = require('./controllers/UserCtrl');
 const isAuth   = require('./middleware/auth');
 
 //Rutas
 const element = require('./routes/Elements');
+const products = require('./routes/Products');
 
 // Creamos la App de express y sus configuraciones
 const App = express();
@@ -19,15 +20,16 @@ App.use(parser.json());
 App.use(parser.urlencoded({extended: true}));
 
 //Rutas
-App.use('/element', isAuth , element);
+App.use('/element', isAuth, element);
+App.use('/products', isAuth, products);
 
 //Estas rutas hay que cambiarlas
 App.get('/private', isAuth, (req, res)=>{ 
     res.status(200).send({message: 'Tienes acceso'}) 
 })
-
-App.post('/signup', userCtrl.signUp);
-App.post('/signin', userCtrl.signIn)
+//Rutas de sesiones
+App.post('/signup', signUp);
+App.post('/signin', signIn)
 
 
 module.exports = App;
