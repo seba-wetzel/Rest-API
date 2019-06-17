@@ -1,5 +1,5 @@
 const express = require('express');
-const element = express.Router();
+const product = express.Router();
 
 const ProductsCtrl = require('../controllers/ProductsCtrl');
 const isAuth   = require('../middleware/auth');
