@@ -9,4 +9,4 @@ const ProductsSchema = Schema({
     elements: []
 });
 
-module.exports = mongoose.model('Element', ProductsSchema);
+module.exports = mongoose.model('Product', ProductsSchema);
