@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ElementsSchema = Schema({
-    //TODO add a user fild with the user id owner
-    //TODO add a timestamp fild for the last modification 
+    user: String,
     name: String,
+    createDate: {type: Date, default:Date.now()},
+    modificationDate: {type: Date, default:Date.now()},
     type: { type: String, enum: ['unit', 'lineal', 'area'] },
     price: { type: Number, default: 0 },
     width: { type: Number, default: 0 },

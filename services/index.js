@@ -6,7 +6,7 @@ const createToken = (user) => {
     const payload = {
         sub: user._id,
         iat: moment().unix(),
-        exp: moment().add(10, 'minutes').unix()
+        exp: moment().add(14, 'days').unix()
     }
     return jwt.encode(payload, config.SECRET_TOKEN);
 }
@@ -16,7 +16,7 @@ const decodeToken = (token) => {
         try {
             const payload = jwt.decode(token, config.SECRET_TOKEN)
             console.log(payload)
-            resolve(payload.sub)
+            resolve(payload.sub) //Devuelve el ID del usuerio
         } catch (err) {
             if (err.message == 'Token expired') {
                 reject({

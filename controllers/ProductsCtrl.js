@@ -1,8 +1,8 @@
 const Product = require('../schemas/productsSchema');
 
 const getProducts = (req, res) => {
-    //TODO add a req.user (user id) as a parameter in the search
-    Product.find({}, (err, Products) => {
+    console.log(req.user)
+    Product.find({user:req.user}, (err, Products) => {
         if (err) return res.status(500).send({ message: "Error al buscar los Productos" }).end();
         if (!Products) return res.status(400).send({ message: "No hay elemntos" }).end();
         res.status(200).send({ Products }).end();
@@ -21,6 +21,7 @@ const getProductById = (req, res) => {
 const updateProductById = (req, res) => {
     let ProductId = req.params.ProductId;
     let update = req.body;
+    update.modificationDate = Date.now();
     console.log(`PUT request on /Product/:${ProductId}`);
     Product.findByIdAndUpdate(ProductId, update, (err, ProductUpdated) => {
         if (err) return res.status(500).send({ message: `Error al actualizar el Producto: ${err}` }).end();
@@ -43,12 +44,14 @@ const removeProductById = (req, res) => {
 
 const saveProduct = (req, res) => {
     console.log('POST request on /Product');
-    console.log(req.body);
-    let Product = new Product();
-    Product.name = req.body.name;
-    Product.type = req.body.type;
-    Product.price = req.body.price;
-    Product.save((err, Product) => {
+
+    let ProductNew = new Product();
+    ProductNew.name = req.body.name;
+    ProductNew.user = req.user;
+    ProductNew.elements = req.body.elements;
+    // console.log(req.body.elements[2])
+    // res.status(200).send(req.body)
+    ProductNew.save((err, Product) => {
         if (err) return res.status(500).send({message: `error al crear el Producto: ${Product}`}).end();
         else res.status(200).send({ Product }).end();
     })
@@ -61,5 +64,3 @@ module.exports = {
     removeProductById,
     saveProduct
 }
-
-//TODO esta todo copiado, hay que revisar uno por uno que esta bien

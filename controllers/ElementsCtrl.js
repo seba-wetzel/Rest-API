@@ -1,8 +1,8 @@
 const Element = require('../schemas/elementSchema');
 
 const getElements = (req, res) => {
-    //TODO add a req.user (user id) as a parameter in the search
-    Element.find({}, (err, elements) => {
+    console.log(req.user);
+    Element.find({user:req.user}, (err, elements) => {
         if (err) return res.status(500).send({ message: "Error al buscar los elementos" }).end();
         if (!elements) return res.status(400).send({ message: "No hay elemntos" }).end();
         res.status(200).send({ elements }).end();
@@ -21,6 +21,7 @@ const getElementById = (req, res) => {
 const updateElementById = (req, res) => {
     let elementId = req.params.elementId;
     let update = req.body;
+    update.modificationDate = Date.now();
     console.log(`PUT request on /element/:${elementId}`);
     Element.findByIdAndUpdate(elementId, update, (err, elementUpdated) => {
         if (err) return res.status(500).send({ message: `Error al actualizar el elemento: ${err}` }).end();
@@ -45,6 +46,7 @@ const saveElement = (req, res) => {
     console.log('POST request on /element');
     console.log(req.body);
     let element = new Element();
+    element.user = req.user;
     element.name = req.body.name;
     element.type = req.body.type;
     element.price = req.body.price;
